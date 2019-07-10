@@ -174,24 +174,25 @@ figure,surf(doppler_axis,range_axis,RDM);
 
 % *%:
 %Select the number of Training Cells in both the dimensions.
-Tr = 12;
-Td = 10; 
+Tr = 80;
+Td = 20; 
 
 % *%:
 %Select the number of Guard Cells in both dimensions around the Cell under 
 %test (CUT) for accurate estimation
-Gr = 4;
-Gd = 4;
+Gr = 7;
+Gd = 7;
 
 n_traincell = (2*(Td+Gd)+1)  * (2 * (Tr + Gr)+ 1) - ((2 * Gr + 1) * (2 * Gd +1));
 
 % *%:
 % offset the threshold by SNR value in dB
 
-offset =8;
+offset =12;
 
 % *%:
 %Create a vector to store noise_level for each iteration on training cells
+
 noise_level = zeros(1,1);
 
 
@@ -253,9 +254,8 @@ end
 for i = 1 : Nr/2
     for j = 1:Nd
         
-        if (( i <= (Tr + Gr) ) || (j <= (Td + Gd)) || i > (Nr/2 - (Tr + Gr)) || j > (Nd/2 - (Td + Gd)))
-            
-            RDM(i,j) = 0;
+        if (RDM(i,j) ~= 0 && RDM(i,j) ~= 1 )
+             RDM(i,j) = 0;
         end
     end
 end
